@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+    <title>Dash.js Rocks</title>
+    <script src="js/dash.webm.debug.js"></script>
+</head>
+<body>
+<div>
+    <video id="videoPlayer" controls="true" width="600" height="480"></video>
+</div>
+
+<script>
+    (function(){
+        var url = "http://143.248.142.22:55555/vod/2b3f84c0-b57d-11e4-8c49-4bb8055a0797_manifest.mpd";
+        var context = new Webm.di.WebmContext();
+        var player = new MediaPlayer(context);
+        player.startup();
+        player.attachView(document.querySelector("#videoPlayer"));
+        player.setAutoPlay(true);
+        player.attachSource(url);
+    })();
+</script>
+</body>
+</html>

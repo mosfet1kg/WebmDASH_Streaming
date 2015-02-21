@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>TurtleTube - Basic Test</title>
+    <!-- Load the Shaka Player library. -->
+    <script src="shaka-player.compiled.js"></script>
+</head>
+<body>
+    <div id="screen">
+        <video id="video"
+               width="640" height="480"
+               crossorigin="anonymous"
+               controls autoplay="autoplay" >
+            Your browser does not support HTML5 video.
+        </video>
+    </div>
+</body>
+<script>
+    function initPlayer() {
+        // Install polyfills.
+        shaka.polyfill.Fullscreen.install();
+        shaka.polyfill.MediaKeys.install();
+        shaka.polyfill.VideoPlaybackQuality.install();
+
+        // Find the video element.
+        var video = document.getElementById('video');
+
+        // Construct a Player to wrap around it.
+        var player = new shaka.player.Player(video);
+
+        // Attach the player to the window so that it can be easily debugged.
+        window.player = player;
+
+        // Listen for errors from the Player.
+        player.addEventListener('error', function(event) {
+            console.error(event);
+//            var source = document.createElement('source');
+//
+//            source.setAttribute('src', 'http://143.248.142.22:55555/video_160x90_250k.webm');
+//            source.setAttribute('type', 'video/webm');
+//            video.appendChild(source);
+//
+//            var audio = document.createElement('audio');
+//            audio.setAttribute('id', 'audio');
+//
+//            var audio_src = document.createElement('source');
+//            audio_src.setAttribute('src', 'http://143.248.142.22:55555/audio_128k.webm');
+//            audio_src.setAttribute('type', 'audio/webm');
+//            audio.appendChild(audio_src);
+//
+//
+//            var screen = document.getElementById('screen');
+//            screen.appendChild(audio);
+//
+//
+//            if(typeof(window.MediaController) === 'function')
+//            {
+//                var controller = new MediaController();
+//                video.controller = controller;
+//                audio.controller = controller;
+//            }
+//            else
+//            {
+//                controller = null;
+//            }
+//
+//            video.volume = 0.8;
+//            audio.volume = 1;
+//
+//            video.addEventListener('play', function()
+//            {
+//                if(!controller && audio.paused)
+//                {
+//                    audio.play();
+//                }
+//            }, false);
+//
+//            video.addEventListener('pause', function()
+//            {
+//                if(!controller && !audio.paused)
+//                {
+//                    audio.pause();
+//                }
+//            }, false);
+//
+//            video.addEventListener('ended', function()
+//            {
+//                if(controller)
+//                {
+//                    controller.pause();
+//                }
+//                else
+//                {
+//                    video.pause();
+//                    audio.pause();
+//                }
+//            }, false);
+//
+//            video.addEventListener('timeupdate', function()
+//            {
+//                if(!controller && audio.readyState >= 4)
+//                {
+//                    if(Math.floor(audio.currentTime*0.1) != Math.floor(video.currentTime*0.1))
+//                    {
+//                        audio.currentTime = video.currentTime;
+//                    }
+//                }
+//            }, false); //end
+
+        });
+
+        // Construct a DashVideoSource to represent the DASH manifest. 2b3f84c0-b57d-11e4-8c49-4bb8055a0797_manifest 8d0049d0-b5b2-11e4-9de7-213d8bf831eb
+        var mpdUrl = 'http://143.248.142.22:55555/vod/3e7d2f50-b5bf-11e4-9de7-213d8bf831eb_manifest.mpd';
+        var source = new shaka.player.DashVideoSource(mpdUrl, null);
+
+        // Load the source into the Player.
+        player.load(source);
+    }
+    document.addEventListener('DOMContentLoaded', initPlayer);
+</script>
+</html>
