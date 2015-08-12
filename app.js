@@ -68,7 +68,8 @@ app.post('/register/', function(req, res){;
     function extractSound(file){
         var d = Q.defer(),
             fileName = path.basename(file, path.extname(file)),
-            command =  '-y -async 1 -i ' + path.join(vodDir, file) +' -b:a 128k -ar 44100 -vn -c:a libvorbis -ac 2 -f webm -dash 1 ' +
+            command =  '-y -async 1 -i ' + path.join(vodDir, file) +' -b:a 128k -ar 44100 ' +
+                '-vn -c:a libvorbis -ac 2 -f webm -dash 1 ' +
                 path.join(vodDir, fileName+'_audio_128k.webm');
 
         var child = spawn('ffmpeg', command.split(" "));
@@ -92,8 +93,10 @@ app.post('/register/', function(req, res){;
     function vp9Encoder(file, videoSize, bitrate){
         var d = Q.defer(),
             fileName = path.basename(file, path.extname(file)),
-            command = '-y -vsync 1 -i ' + path.join(vodDir,file) + ' -r 30000/1001 -an -c:v libvpx -s ' +videoSize+ ' -b:v ' + bitrate + ' -keyint_min 150 -g 150 ' +
-                '-tile-columns 4 -frame-parallel 1 -cpu-used 16 -f webm -dash 1 '+ path.join(vodDir, fileName+'_' +videoSize +'_' + bitrate + '.webm');
+            command = '-y -vsync 1 -i ' + path.join(vodDir,file) + ' -r 30000/1001 -an -c:v libvpx -s ' +videoSize +
+                ' -b:v ' + bitrate + ' -keyint_min 150 -g 150 ' +
+                '-tile-columns 4 -frame-parallel 1 -cpu-used 16 -f webm -dash 1 '+ path.join(vodDir, fileName+'_' +
+                videoSize +'_' + bitrate + '.webm');
         console.log(command);
         var child = spawn('ffmpeg', command.split(" "));
         child.stdout.on('data', function(data){
