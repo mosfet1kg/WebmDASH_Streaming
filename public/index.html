@@ -111,8 +111,10 @@
         });
 
         // Construct a DashVideoSource to represent the DASH manifest. 2b3f84c0-b57d-11e4-8c49-4bb8055a0797_manifest 8d0049d0-b5b2-11e4-9de7-213d8bf831eb
-        var mpdUrl = 'http://143.248.142.22:55555/vod/3e7d2f50-b5bf-11e4-9de7-213d8bf831eb_manifest.mpd';
-        var source = new shaka.player.DashVideoSource(mpdUrl, null);
+    //    var mpdUrl = 'http://143.248.142.22:55555/vod/2b3f84c0-b57d-11e4-8c49-4bb8055a0797_manifest.mpd';
+      
+var mpdUrl = 'http://143.248.142.22:55555/vod/test_manifest.mpd';
+  var source = new shaka.player.DashVideoSource(mpdUrl, null);
 
         // Load the source into the Player.
         player.load(source);

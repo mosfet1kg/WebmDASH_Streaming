@@ -4,6 +4,7 @@
   "description": "Sending files to the server, and pushing files to the client should be as easy as possible. Delivery.js uses Node.js and Socket.IO to make it easy to push files to the client, or send them to the server. Files can be pushed to the client as text (utf8) or base64 (for images and binary files).",
   "main": "app.js",
   "dependencies": {
+    "async": "^1.4.2",
     "body-parser": "^1.12.0",
     "express": "^4.11.1",
     "mime": "^1.2.11",
